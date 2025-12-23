@@ -1,8 +1,8 @@
 <!-- Header Component -->
-<header class="h-16 bg-gradient-to-r from-[#A2B8CC] to-[#A2B8CC]/25 flex items-center justify-between px-6 fixed top-0 left-0 right-0 z-50 shadow-sm">
+<header class="h-16 bg-linear-to-r from-[#A2B8CC] to-[#DADADA]/25 flex items-center justify-between px-6 fixed top-0 left-0 right-0 z-50 shadow-sm">
     <!-- Left Side (Brand/Logo) -->
     <div class="flex items-center">
-        <h1 class="text-lg font-semibold text-gray-800">Dashboard</h1>
+        <h1 class="text-lg font-semibold text-gray-800"></h1>
     </div>
 
     <!-- Right Side (Dropdown Menu) -->

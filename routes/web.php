@@ -5,9 +5,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
-// Home
+// Home - Redirect to login
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 // Authentication Routes

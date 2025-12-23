@@ -10,20 +10,31 @@
     </div>
 
     <!-- Info and Action Bar -->
-    <div class="flex flex-col gap-4 mb-8">
-        <!-- Date Display -->
-        <div class="text-gray-600">
-            <p class="text-sm md:text-base" id="currentDate">Loading...</p>
-        </div>
+    <div class="flex gap-4 mb-8">
+        <!-- Left Column: Date and Search -->
+        <div class="flex flex-col gap-3 flex-1">
+            <!-- Date Display -->
+            <div class="text-gray-600">
+                <p class="text-sm md:text-base" id="currentDate">Loading...</p>
+            </div>
 
-        <!-- Search Filter -->
-        <input 
-            type="text" 
-            id="searchInput" 
-            placeholder="Search by No, Kode, or Nama..." 
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            onkeyup="filterOrders()"
-        >
+            <!-- Search and Date Filter Row -->
+            <div class="flex gap-3 items-center flex-wrap">
+                <!-- Search Filter -->
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search..." 
+                    class="flex-1 min-w-[150px] px-4 py-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                    onkeyup="filterOrders()"
+                >
+                
+                <!-- Date Filter -->
+                <input type="date" id="dateFilter"
+                    class="px-4 py-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                    onchange="filterByDate()">
+            </div>
+        </div>
     </div>
 
     <!-- Plat Tipis Table -->
@@ -44,15 +55,19 @@
                 <tbody id="platTipisTable">
                     @forelse($orders['plat-tipis'] ?? [] as $order)
                         @if($order->status === 'complete')
-                            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors order-row" data-order-id="{{ $order->id }}" data-no="{{ $order->no }}" data-kode="{{ $order->kode }}" data-nama="{{ strtolower($order->nama) }}">
+                            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors order-row" data-order-id="{{ $order->id }}" data-no="{{ $order->no }}" data-kode="{{ $order->kode }}" data-nama="{{ strtolower($order->nama) }}" data-created-at="{{ $order->created_at->format('Y-m-d H:i:s') }}">
                                 <td class="px-4 py-3 text-gray-900">{{ $order->no }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->kode }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->nama }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->barang }}</td>
                                 <td class="px-4 py-3 text-gray-600">{{ $order->created_at->format('H:i') }}</td>
                                 <td class="px-4 py-3">
-                                    <div class="flex gap-2">
-                                        <button onclick="deleteOrder({{ $order->id }})" class="px-2 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600 transition-colors">Delete</button>
+                                    <div class="flex gap-3 items-center">
+                                        <button onclick="deleteOrder({{ $order->id }})"
+                                            class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-100 hover:bg-red-200 transition-colors"
+                                            title="Delete">
+                                            <img src="{{ asset('images/delete-icon.png') }}" alt="Delete" class="w-4 h-4">
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -85,15 +100,19 @@
                 <tbody id="platTebalTable">
                     @forelse($orders['plat-tebal'] ?? [] as $order)
                         @if($order->status === 'complete')
-                            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors order-row" data-order-id="{{ $order->id }}" data-no="{{ $order->no }}" data-kode="{{ $order->kode }}" data-nama="{{ strtolower($order->nama) }}">
+                            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors order-row" data-order-id="{{ $order->id }}" data-no="{{ $order->no }}" data-kode="{{ $order->kode }}" data-nama="{{ strtolower($order->nama) }}" data-created-at="{{ $order->created_at->format('Y-m-d H:i:s') }}">
                                 <td class="px-4 py-3 text-gray-900">{{ $order->no }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->kode }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->nama }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->barang }}</td>
                                 <td class="px-4 py-3 text-gray-600">{{ $order->created_at->format('H:i') }}</td>
                                 <td class="px-4 py-3">
-                                    <div class="flex gap-2">
-                                        <button onclick="deleteOrder({{ $order->id }})" class="px-2 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600 transition-colors">Delete</button>
+                                    <div class="flex gap-3 items-center">
+                                        <button onclick="deleteOrder({{ $order->id }})"
+                                            class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-100 hover:bg-red-200 transition-colors"
+                                            title="Delete">
+                                            <img src="{{ asset('images/delete-icon.png') }}" alt="Delete" class="w-4 h-4">
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -126,15 +145,19 @@
                 <tbody id="pipaTable">
                     @forelse($orders['pipa'] ?? [] as $order)
                         @if($order->status === 'complete')
-                            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors order-row" data-order-id="{{ $order->id }}" data-no="{{ $order->no }}" data-kode="{{ $order->kode }}" data-nama="{{ strtolower($order->nama) }}">
+                            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors order-row" data-order-id="{{ $order->id }}" data-no="{{ $order->no }}" data-kode="{{ $order->kode }}" data-nama="{{ strtolower($order->nama) }}" data-created-at="{{ $order->created_at->format('Y-m-d H:i:s') }}">
                                 <td class="px-4 py-3 text-gray-900">{{ $order->no }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->kode }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->nama }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->barang }}</td>
                                 <td class="px-4 py-3 text-gray-600">{{ $order->created_at->format('H:i') }}</td>
                                 <td class="px-4 py-3">
-                                    <div class="flex gap-2">
-                                        <button onclick="deleteOrder({{ $order->id }})" class="px-2 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600 transition-colors">Delete</button>
+                                    <div class="flex gap-3 items-center">
+                                        <button onclick="deleteOrder({{ $order->id }})"
+                                            class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-100 hover:bg-red-200 transition-colors"
+                                            title="Delete">
+                                            <img src="{{ asset('images/delete-icon.png') }}" alt="Delete" class="w-4 h-4">
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -175,6 +198,27 @@
                 row.style.display = '';
             } else {
                 row.style.display = 'none';
+            }
+        });
+    }
+
+    // Filter orders by date
+    function filterByDate() {
+        const selectedDate = document.getElementById('dateFilter').value;
+        const rows = document.querySelectorAll('.order-row');
+
+        rows.forEach(row => {
+            if (!selectedDate) {
+                row.style.display = '';
+                return;
+            }
+
+            const createdAtAttr = row.getAttribute('data-created-at');
+            
+            if (createdAtAttr) {
+                const rowDate = createdAtAttr.split(' ')[0]; // Get only the date part YYYY-MM-DD
+                const matches = rowDate === selectedDate;
+                row.style.display = matches ? '' : 'none';
             }
         });
     }

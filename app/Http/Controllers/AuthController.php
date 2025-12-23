@@ -39,7 +39,7 @@ class AuthController extends Controller
         // Log the user in
         Auth::login($user);
 
-        return redirect('/dashboard')->with('success', 'Registration successful!');
+        return redirect('/order')->with('success', 'Registration successful!');
     }
 
     /**
@@ -76,7 +76,7 @@ class AuthController extends Controller
         // Attempt to authenticate
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('/dashboard')->with('success', 'Login successful!');
+            return redirect('/order')->with('success', 'Login successful!');
         }
 
         // Authentication failed

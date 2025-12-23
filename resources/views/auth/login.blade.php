@@ -74,14 +74,14 @@
         </form>
 
         <!-- Register Link -->
-        <div class="mt-6 pt-5 border-t border-gray-100 text-center">
+        {{-- <div class="mt-6 pt-5 border-t border-gray-100 text-center">
             <p class="text-gray-600 text-sm">
                 Belum ada akun? 
                 <a href="{{ route('register') }}" class="text-blue-500 font-semibold hover:text-blue-600 hover:underline transition-colors duration-300">
                     Register disini!
                 </a>
             </p>
-        </div>
+        </div> --}}
     </div>
 
     <style>
