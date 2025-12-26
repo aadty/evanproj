@@ -19,12 +19,16 @@ class Order extends Model
         'nama',
         'barang',
         'status',
+        'taken_at',
+        'delivery_at',
     ];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
+        'taken_at' => 'datetime',
+        'delivery_at' => 'datetime',
     ];
 
     /**

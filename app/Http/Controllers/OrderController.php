@@ -29,6 +29,26 @@ class OrderController extends Controller
     }
 
     /**
+     * Show the taken page with orders marked as taken grouped by kategori
+     */
+    public function taken()
+    {
+        $orders = Order::where('status', 'complete')->whereNotNull('taken_at')->get()->groupBy('kategori');
+
+        return view('order.taken', compact('orders'));
+    }
+
+    /**
+     * Show the delivery page with delivered orders grouped by kategori
+     */
+    public function delivery()
+    {
+        $orders = Order::where('status', 'complete')->whereNotNull('delivery_at')->get()->groupBy('kategori');
+
+        return view('order.delivery', compact('orders'));
+    }
+
+    /**
      * Store a newly created order via AJAX
      */
     public function store(Request $request): JsonResponse
@@ -133,6 +153,56 @@ class OrderController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Order marked as complete',
+                'order' => $order,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 422);
+        }
+    }
+
+    /**
+     * Mark order as taken via AJAX
+     */
+    public function markTaken(Order $order): JsonResponse
+    {
+        try {
+            // When marking as taken, clear delivery timestamp
+            $order->update([
+                'taken_at' => now(),
+                'delivery_at' => null
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Order marked as taken',
+                'order' => $order,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 422);
+        }
+    }
+
+    /**
+     * Mark order as delivered via AJAX
+     */
+    public function markDelivered(Order $order): JsonResponse
+    {
+        try {
+            // When marking as delivered, clear taken timestamp
+            $order->update([
+                'delivery_at' => now(),
+                'taken_at' => null
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Order marked as delivered',
                 'order' => $order,
             ]);
         } catch (\Exception $e) {

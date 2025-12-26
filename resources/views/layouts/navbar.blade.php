@@ -19,19 +19,23 @@
         <img src="{{ asset('images/order-c.png') }}" alt="Order Completed" class="w-6 h-6 object-contain">
     </a>
 
-    <!-- Navigation Slot 3 - Help & FAQ -->
-    <button
-        class="w-10 h-10 rounded-lg bg-[#A2B8CC] shadow-sm hover:shadow-md hover:bg-gray-50 transition-all duration-300 flex items-center justify-center focus:outline-none"
-        title="Help & FAQ">
-        <img src="{{ asset('images/hf.png') }}" alt="Help & FAQ" class="w-6 h-6 object-contain">
-    </button>
+    <!-- Navigation Slot 3 - Taken -->
+    <a
+        href="{{ route('order.taken') }}"
+        class="nav-link w-10 h-10 rounded-lg bg-[#A2B8CC] shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center focus:outline-none"
+        data-route="order.taken"
+        title="Taken">
+        <img src="{{ asset('images/hf.png') }}" alt="Taken" class="w-6 h-6 object-contain">
+    </a>
 
     <!-- Navigation Slot 4 - Delivery -->
-    <button
-        class="w-10 h-10 rounded-lg bg-[#A2B8CC] shadow-sm hover:shadow-md hover:bg-gray-50 transition-all duration-300 flex items-center justify-center focus:outline-none"
+    <a
+        href="{{ route('order.delivery') }}"
+        class="nav-link w-10 h-10 rounded-lg bg-[#A2B8CC] shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center focus:outline-none"
+        data-route="order.delivery"
         title="Delivery">
         <img src="{{ asset('images/deliv.png') }}" alt="Delivery" class="w-6 h-6 object-contain">
-    </button>
+    </a>
 
     <!-- Navigation Slot 5 - Reports -->
     <button

@@ -48,6 +48,7 @@
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">No</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Kode</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Nama</th>
+                        <th class="px-4 py-3 text-left font-semibold text-gray-700">Status</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Aksi</th>
                     </tr>
                 </thead>
@@ -59,12 +60,45 @@
                                 <td class="px-4 py-3 text-gray-900">{{ $order->kode }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->nama }}</td>
                                 <td class="px-4 py-3">
+                                    @if(!is_null($order->taken_at))
+                                        <span class="inline-flex items-center px-3 py-1 rounded-lg bg-purple-100 text-purple-700 font-medium text-xs">Taken</span>
+                                    @elseif(!is_null($order->delivery_at))
+                                        <span class="inline-flex items-center px-3 py-1 rounded-lg bg-cyan-100 text-cyan-700 font-medium text-xs">Delivered</span>
+                                    @else
+                                        <span class="inline-flex items-center px-3 py-1 rounded-lg bg-gray-100 text-gray-600 font-medium text-xs">Pending</span>
+                                    @endif
+                                </td>
+                                <td class="px-4 py-3">
                                     <div class="flex gap-3 items-center">
                                         <button onclick="showDetail({{ $order->id }}, '{{ $order->no }}', '{{ $order->barang }}', '{{ $order->created_at->format('H:i') }}')"
                                             class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 hover:bg-blue-200 transition-colors"
                                             title="Detail">
                                             <img src="{{ asset('images/detail-icon.png') }}" alt="Detail" class="w-4 h-4">
                                         </button>
+                                        @if(is_null($order->taken_at) && is_null($order->delivery_at))
+                                        <button onclick="markAction('taken', {{ $order->id }})"
+                                            class="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium text-xs transition-colors"
+                                            title="Mark as Taken">
+                                            Taken
+                                        </button>
+                                        <button onclick="markAction('delivery', {{ $order->id }})"
+                                            class="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-cyan-100 hover:bg-cyan-200 text-cyan-700 font-medium text-xs transition-colors"
+                                            title="Mark as Delivery">
+                                            Delivery
+                                        </button>
+                                        @elseif(!is_null($order->taken_at) && is_null($order->delivery_at))
+                                        <button onclick="markAction('delivery', {{ $order->id }})"
+                                            class="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-cyan-100 hover:bg-cyan-200 text-cyan-700 font-medium text-xs transition-colors"
+                                            title="Mark as Delivery">
+                                            Delivery
+                                        </button>
+                                        @elseif(is_null($order->taken_at) && !is_null($order->delivery_at))
+                                        <button onclick="markAction('taken', {{ $order->id }})"
+                                            class="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium text-xs transition-colors"
+                                            title="Mark as Taken">
+                                            Taken
+                                        </button>
+                                        @endif
                                         <button onclick="confirmAction('delete', {{ $order->id }})"
                                             class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-100 hover:bg-red-200 transition-colors"
                                             title="Delete">
@@ -81,7 +115,7 @@
                         @endif
                     @empty
                         <tr>
-                            <td colspan="4" class="px-4 py-8 text-center text-gray-500">No completed orders yet</td>
+                            <td colspan="5" class="px-4 py-8 text-center text-gray-500">No completed orders yet</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -99,6 +133,7 @@
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">No</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Kode</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Nama</th>
+                        <th class="px-4 py-3 text-left font-semibold text-gray-700">Status</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Aksi</th>
                     </tr>
                 </thead>
@@ -110,12 +145,45 @@
                                 <td class="px-4 py-3 text-gray-900">{{ $order->kode }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->nama }}</td>
                                 <td class="px-4 py-3">
+                                    @if(!is_null($order->taken_at))
+                                        <span class="inline-flex items-center px-3 py-1 rounded-lg bg-purple-100 text-purple-700 font-medium text-xs">Taken</span>
+                                    @elseif(!is_null($order->delivery_at))
+                                        <span class="inline-flex items-center px-3 py-1 rounded-lg bg-cyan-100 text-cyan-700 font-medium text-xs">Delivered</span>
+                                    @else
+                                        <span class="inline-flex items-center px-3 py-1 rounded-lg bg-gray-100 text-gray-600 font-medium text-xs">Pending</span>
+                                    @endif
+                                </td>
+                                <td class="px-4 py-3">
                                     <div class="flex gap-3 items-center">
                                         <button onclick="showDetail({{ $order->id }}, '{{ $order->no }}', '{{ $order->barang }}', '{{ $order->created_at->format('H:i') }}')"
                                             class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 hover:bg-blue-200 transition-colors"
                                             title="Detail">
                                             <img src="{{ asset('images/detail-icon.png') }}" alt="Detail" class="w-4 h-4">
                                         </button>
+                                        @if(is_null($order->taken_at) && is_null($order->delivery_at))
+                                        <button onclick="markAction('taken', {{ $order->id }})"
+                                            class="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium text-xs transition-colors"
+                                            title="Mark as Taken">
+                                            Taken
+                                        </button>
+                                        <button onclick="markAction('delivery', {{ $order->id }})"
+                                            class="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-cyan-100 hover:bg-cyan-200 text-cyan-700 font-medium text-xs transition-colors"
+                                            title="Mark as Delivery">
+                                            Delivery
+                                        </button>
+                                        @elseif(!is_null($order->taken_at) && is_null($order->delivery_at))
+                                        <button onclick="markAction('delivery', {{ $order->id }})"
+                                            class="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-cyan-100 hover:bg-cyan-200 text-cyan-700 font-medium text-xs transition-colors"
+                                            title="Mark as Delivery">
+                                            Delivery
+                                        </button>
+                                        @elseif(is_null($order->taken_at) && !is_null($order->delivery_at))
+                                        <button onclick="markAction('taken', {{ $order->id }})"
+                                            class="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium text-xs transition-colors"
+                                            title="Mark as Taken">
+                                            Taken
+                                        </button>
+                                        @endif
                                         <button onclick="confirmAction('delete', {{ $order->id }})"
                                             class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-100 hover:bg-red-200 transition-colors"
                                             title="Delete">
@@ -132,7 +200,7 @@
                         @endif
                     @empty
                         <tr>
-                            <td colspan="4" class="px-4 py-8 text-center text-gray-500">No completed orders yet</td>
+                            <td colspan="5" class="px-4 py-8 text-center text-gray-500">No completed orders yet</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -150,6 +218,7 @@
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">No</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Kode</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Nama</th>
+                        <th class="px-4 py-3 text-left font-semibold text-gray-700">Status</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Aksi</th>
                     </tr>
                 </thead>
@@ -161,12 +230,45 @@
                                 <td class="px-4 py-3 text-gray-900">{{ $order->kode }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->nama }}</td>
                                 <td class="px-4 py-3">
+                                    @if(!is_null($order->taken_at))
+                                        <span class="inline-flex items-center px-3 py-1 rounded-lg bg-purple-100 text-purple-700 font-medium text-xs">Taken</span>
+                                    @elseif(!is_null($order->delivery_at))
+                                        <span class="inline-flex items-center px-3 py-1 rounded-lg bg-cyan-100 text-cyan-700 font-medium text-xs">Delivered</span>
+                                    @else
+                                        <span class="inline-flex items-center px-3 py-1 rounded-lg bg-gray-100 text-gray-600 font-medium text-xs">Pending</span>
+                                    @endif
+                                </td>
+                                <td class="px-4 py-3">
                                     <div class="flex gap-3 items-center">
                                         <button onclick="showDetail({{ $order->id }}, '{{ $order->no }}', '{{ $order->barang }}', '{{ $order->created_at->format('H:i') }}')"
                                             class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 hover:bg-blue-200 transition-colors"
                                             title="Detail">
                                             <img src="{{ asset('images/detail-icon.png') }}" alt="Detail" class="w-4 h-4">
                                         </button>
+                                        @if(is_null($order->taken_at) && is_null($order->delivery_at))
+                                        <button onclick="markAction('taken', {{ $order->id }})"
+                                            class="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium text-xs transition-colors"
+                                            title="Mark as Taken">
+                                            Taken
+                                        </button>
+                                        <button onclick="markAction('delivery', {{ $order->id }})"
+                                            class="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-cyan-100 hover:bg-cyan-200 text-cyan-700 font-medium text-xs transition-colors"
+                                            title="Mark as Delivery">
+                                            Delivery
+                                        </button>
+                                        @elseif(!is_null($order->taken_at) && is_null($order->delivery_at))
+                                        <button onclick="markAction('delivery', {{ $order->id }})"
+                                            class="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-cyan-100 hover:bg-cyan-200 text-cyan-700 font-medium text-xs transition-colors"
+                                            title="Mark as Delivery">
+                                            Delivery
+                                        </button>
+                                        @elseif(is_null($order->taken_at) && !is_null($order->delivery_at))
+                                        <button onclick="markAction('taken', {{ $order->id }})"
+                                            class="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium text-xs transition-colors"
+                                            title="Mark as Taken">
+                                            Taken
+                                        </button>
+                                        @endif
                                         <button onclick="confirmAction('delete', {{ $order->id }})"
                                             class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-100 hover:bg-red-200 transition-colors"
                                             title="Delete">
@@ -183,7 +285,7 @@
                         @endif
                     @empty
                         <tr>
-                            <td colspan="4" class="px-4 py-8 text-center text-gray-500">No completed orders yet</td>
+                            <td colspan="5" class="px-4 py-8 text-center text-gray-500">No completed orders yet</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -495,6 +597,47 @@
             editOrder(id, ...args);
         }
         pendingAction = null;
+    }
+
+    // Mark order as taken or delivered
+    function markAction(type, id) {
+        if (type === 'taken') {
+            if (!confirm('Mark this order as taken?')) return;
+            fetch(`/order/${id}/taken`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert(data.message);
+                }
+            });
+        } else if (type === 'delivery') {
+            if (!confirm('Mark this order as delivered?')) return;
+            fetch(`/order/${id}/delivery`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert(data.message);
+                }
+            });
+        }
     }
 
     // Filter orders by no, kode, or nama with debouncing
