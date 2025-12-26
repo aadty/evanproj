@@ -24,7 +24,7 @@
                     <input type="text" id="searchInput" placeholder="Search..."
                         class="w-1/2 px-4 py-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 placeholder-gray-400"
                         onkeyup="filterOrders()">
-                    
+
                     <!-- Date Filter -->
                     <input type="date" id="dateFilter"
                         class="w-1/2 px-4 py-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
@@ -34,7 +34,7 @@
 
             <!-- Right Column: Add Button (Full Height) -->
             <div class="flex flex-col w-1/3 items-center justify-center">
-                <button onclick="openModal()" 
+                <button onclick="openModal()"
                     class="w-full h-2/3 px-4 bg-white text-green-700 font-semibold rounded-lg hover:bg-green-50 transition-all duration-300 flex items-center justify-center group"
                     title="Add New Order" aria-label="Add Order">
                     <span class="w-full h-8 pb-1 bg-green-500 rounded-md flex items-center justify-center text-white text-2xl leading-none shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
@@ -45,7 +45,7 @@
 
         </div>
 
-    
+
 
     <!-- Plat Tipis Table -->
     <div class="mb-14 animate-fade-in">
@@ -56,6 +56,7 @@
                     <tr class="bg-gray-50 border-b border-gray-200">
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">No</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Kode</th>
+                        <th class="px-4 py-3 text-left font-semibold text-gray-700">Nama</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Aksi</th>
                     </tr>
                 </thead>
@@ -69,9 +70,10 @@
                                 data-created-at="{{ $order->created_at->format('Y-m-d H:i:s') }}">
                                 <td class="px-4 py-3 text-gray-900">{{ $order->no }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->kode }}</td>
+                                <td class="px-4 py-3 text-gray-900">{{ $order->nama }}</td>
                                 <td class="px-4 py-3">
                                     <div class="flex gap-3 items-center">
-                                        <button onclick="showDetail({{ $order->id }}, '{{ $order->no }}', '{{ $order->nama }}', '{{ $order->barang }}', '{{ $order->created_at->format('d/m/Y') }}')"
+                                        <button onclick="showDetail({{ $order->id }}, '{{ $order->no }}', '{{ $order->barang }}', '{{ $order->created_at->format('d/m/Y') }}')"
                                             class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 hover:bg-blue-200 transition-colors"
                                             title="Detail">
                                             <img src="{{ asset('images/detail-icon.png') }}" alt="Detail" class="w-4 h-4">
@@ -79,7 +81,7 @@
                                         <button onclick="deleteOrder({{ $order->id }})"
                                             class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-100 hover:bg-red-200 transition-colors"
                                             title="Delete">
-                                            <img src="{{ asset('images/delete-icon.png') }}" alt="Delete" class="w-4 h-4">
+                                            <img src="{{ asset('images/delete-icon.png') }}" alt="Delete" class="w-5 h-5">
                                         </button>
                                         <button
                                             onclick="editOrder({{ $order->id }}, 'plat-tipis', '{{ $order->nama }}', '{{ $order->barang }}')"
@@ -98,7 +100,7 @@
                         @endif
                     @empty
                         <tr>
-                            <td colspan="6" class="px-4 py-8 text-center text-gray-500">No orders yet</td>
+                            <td colspan="4" class="px-4 py-8 text-center text-gray-500">No orders yet</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -115,6 +117,7 @@
                     <tr class="bg-gray-50 border-b border-gray-200">
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">No</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Kode</th>
+                        <th class="px-4 py-3 text-left font-semibold text-gray-700">Nama</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Aksi</th>
                     </tr>
                 </thead>
@@ -128,9 +131,10 @@
                                 data-created-at="{{ $order->created_at->format('Y-m-d H:i:s') }}">
                                 <td class="px-4 py-3 text-gray-900">{{ $order->no }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->kode }}</td>
+                                <td class="px-4 py-3 text-gray-900">{{ $order->nama }}</td>
                                 <td class="px-4 py-3">
                                     <div class="flex gap-3 items-center">
-                                        <button onclick="showDetail({{ $order->id }}, '{{ $order->no }}', '{{ $order->nama }}', '{{ $order->barang }}', '{{ $order->created_at->format('d/m/Y') }}')"
+                                        <button onclick="showDetail({{ $order->id }}, '{{ $order->no }}', '{{ $order->barang }}', '{{ $order->created_at->format('d/m/Y') }}')"
                                             class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 hover:bg-blue-200 transition-colors"
                                             title="Detail">
                                             <img src="{{ asset('images/detail-icon.png') }}" alt="Detail" class="w-4 h-4">
@@ -157,7 +161,7 @@
                         @endif
                     @empty
                         <tr>
-                            <td colspan="6" class="px-4 py-8 text-center text-gray-500">No orders yet</td>
+                            <td colspan="4" class="px-4 py-8 text-center text-gray-500">No orders yet</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -174,6 +178,7 @@
                     <tr class="bg-gray-50 border-b border-gray-200">
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">No</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Kode</th>
+                        <th class="px-4 py-3 text-left font-semibold text-gray-700">Nama</th>
                         <th class="px-4 py-3 text-left font-semibold text-gray-700">Aksi</th>
                     </tr>
                 </thead>
@@ -187,9 +192,10 @@
                                 data-created-at="{{ $order->created_at->format('Y-m-d H:i:s') }}">
                                 <td class="px-4 py-3 text-gray-900">{{ $order->no }}</td>
                                 <td class="px-4 py-3 text-gray-900">{{ $order->kode }}</td>
+                                <td class="px-4 py-3 text-gray-900">{{ $order->nama }}</td>
                                 <td class="px-4 py-3">
                                     <div class="flex gap-3 items-center">
-                                        <button onclick="showDetail({{ $order->id }}, '{{ $order->no }}', '{{ $order->nama }}', '{{ $order->barang }}', '{{ $order->created_at->format('d/m/Y') }}')"
+                                        <button onclick="showDetail({{ $order->id }}, '{{ $order->no }}', '{{ $order->barang }}', '{{ $order->created_at->format('d/m/Y') }}')"
                                             class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 hover:bg-blue-200 transition-colors"
                                             title="Detail">
                                             <img src="{{ asset('images/detail-icon.png') }}" alt="Detail" class="w-4 h-4">
@@ -216,7 +222,7 @@
                         @endif
                     @empty
                         <tr>
-                            <td colspan="3" class="px-4 py-8 text-center text-gray-500">No orders yet</td>
+                            <td colspan="4" class="px-4 py-8 text-center text-gray-500">No orders yet</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -241,7 +247,6 @@
                         <thead>
                             <tr class="bg-gray-100 border-b border-gray-200">
                                 <th class="px-4 py-3 text-left font-semibold text-gray-700">No</th>
-                                <th class="px-4 py-3 text-left font-semibold text-gray-700">Nama</th>
                                 <th class="px-4 py-3 text-left font-semibold text-gray-700">Barang</th>
                                 <th class="px-4 py-3 text-left font-semibold text-gray-700">Waktu</th>
                             </tr>
@@ -249,7 +254,6 @@
                         <tbody>
                             <tr class="border-b border-gray-200 hover:bg-white transition-colors">
                                 <td class="px-4 py-3 text-gray-900" id="detailNo">-</td>
-                                <td class="px-4 py-3 text-gray-900" id="detailNama">-</td>
                                 <td class="px-4 py-3 text-gray-900" id="detailBarang">-</td>
                                 <td class="px-4 py-3 text-gray-600" id="detailTime">-</td>
                             </tr>
@@ -365,12 +369,11 @@
         });
 
         // Show detail modal
-        function showDetail(id, no, nama, barang, time) {
+        function showDetail(id, no, barang, time) {
             document.getElementById('detailNo').innerText = no;
-            document.getElementById('detailNama').innerText = nama;
             document.getElementById('detailBarang').innerText = barang;
             document.getElementById('detailTime').innerText = time;
-            
+
             const modal = document.getElementById('detailModal');
             modal.classList.remove('hidden');
             modal.style.animation = 'fadeIn 0.3s ease-in-out';
@@ -388,22 +391,25 @@
         function addBarangRow(barangValue = '', pcsValue = '1') {
             const container = document.getElementById('barangContainer');
             const rowId = 'barang-' + Date.now();
-            
+
             const row = document.createElement('div');
             row.className = 'barang-row flex gap-2';
             row.id = rowId;
-            
+
             row.innerHTML = `
-                <input type="text" class="barang-input flex-1 px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300" placeholder="Masukkan detail barang" value="${barangValue}">
-                <div class="relative flex-1 max-w-xs">
+                <div class="flex-1">
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Barang</label>
+                    <input type="text" class="barang-input w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300" placeholder="Masukkan detail barang" value="${barangValue}">
+                </div>
+                <div class="flex-1 max-w-xs">
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Pcs</label>
                     <input type="text" class="pcs-input w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300" placeholder="Jumlah" value="${pcsValue}">
-                    <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 font-semibold pointer-events-none">pcs</span>
                 </div>
                 <button type="button" onclick="removeBarangRow('${rowId}')" class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition-colors font-semibold" title="Hapus barang">
                     −
                 </button>
             `;
-            
+
             container.appendChild(row);
         }
 
@@ -424,12 +430,12 @@
             document.getElementById('_method').value = '';
             document.getElementById('modalTitle').innerText = 'Add Order';
             document.getElementById('errorMessage').classList.add('hidden');
-            
+
             // Initialize barang container with one empty row
             const barangContainer = document.getElementById('barangContainer');
             barangContainer.innerHTML = '';
             addBarangRow();
-            
+
             generateNextNo();
             modal.classList.remove('hidden');
             modal.style.animation = 'fadeIn 0.3s ease-in-out';
@@ -474,6 +480,17 @@
             const selectedDate = document.getElementById('dateFilter').value;
             const rows = document.querySelectorAll('.order-row');
 
+            if (selectedDate) {
+                const date = new Date(selectedDate);
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const formatter = new Intl.DateTimeFormat('id-ID', options);
+                document.getElementById('currentDate').innerText = formatter.format(date);
+            } else {
+                const today = new Date();
+                const formatter = new Intl.DateTimeFormat('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                document.getElementById('currentDate').innerText = formatter.format(today);
+            }
+
             rows.forEach(row => {
                 if (!selectedDate) {
                     row.style.display = '';
@@ -482,7 +499,7 @@
 
                 const timeCell = row.querySelector('td:nth-child(5)');
                 const createdAtAttr = row.getAttribute('data-created-at');
-                
+
                 if (createdAtAttr) {
                     const rowDate = createdAtAttr.split(' ')[0]; // Get only the date part YYYY-MM-DD
                     const matches = rowDate === selectedDate;
@@ -536,7 +553,7 @@
             // Clear and populate barang container
             const barangContainer = document.getElementById('barangContainer');
             barangContainer.innerHTML = '';
-            
+
             // Parse existing barang string (format: "barang1 (pcs1), barang2 (pcs2)")
             const barangItems = barang.split(',').map(item => item.trim());
             barangItems.forEach(item => {
@@ -575,7 +592,7 @@
             // Collect all barang entries
             const barangRows = document.querySelectorAll('.barang-row');
             const barangList = [];
-            
+
             barangRows.forEach(row => {
                 const barangInput = row.querySelector('.barang-input');
                 const pcsInput = row.querySelector('.pcs-input');
@@ -769,24 +786,32 @@
                 from { opacity: 0; }
                 to { opacity: 1; }
             }
-            
+
             @keyframes slideOut {
                 from { opacity: 1; transform: translateX(0); }
                 to { opacity: 0; transform: translateX(100%); }
             }
-            
+
             @keyframes shake {
                 0%, 100% { transform: translateX(0); }
                 25% { transform: translateX(-5px); }
                 75% { transform: translateX(5px); }
             }
-            
+
             .animate-fade-in {
                 animation: fadeIn 0.6s ease-in-out;
             }
-            
+
             .animate-shake {
                 animation: shake 0.5s ease-in-out;
+            }
+
+            #dateFilter {
+                background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-calendar' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z'/%3E%3C/svg%3E") no-repeat right 10px center;
+                background-size: 16px;
+                padding-right: 30px;
+                color: transparent;
+                cursor: pointer;
             }
         `;
         document.head.appendChild(style);

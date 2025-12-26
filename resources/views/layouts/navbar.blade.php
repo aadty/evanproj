@@ -1,19 +1,19 @@
 <!-- Sidebar Navigation Component -->
 <nav
-    class="fixed left-0 top-16 h-[calc(100vh-64px)] w-[60px] bg-gray-100 border-r border-gray-200 flex flex-col items-center py-4 space-y-4">
+    class="fixed left-0 top-16 h-[calc(100vh-64px)] w-[60px] bg-gray-100 border-r border-gray-200 flex flex-col items-center py-3 space-y-3">
     <!-- Navigation Slot 1 - Orders -->
     <a
         href="{{ route('order.index') }}"
-        class="nav-link w-10 h-10 rounded-lg bg-[#A2B8CC] shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center focus:outline-none" 
+        class="nav-link w-10 h-10 rounded-lg bg-[#A2B8CC] shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center focus:outline-none"
         data-route="order.index"
         title="Orders">
         <img src="{{ asset('images/order2.png') }}" alt="Orders" class="w-6 h-6 object-contain">
     </a>
-    
+
     <!-- Navigation Slot 2 - Order Completed -->
     <a
         href="{{ route('order.completed') }}"
-        class="nav-link w-10 h-10 rounded-lg bg-[#A2B8CC] shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center focus:outline-none" 
+        class="nav-link w-10 h-10 rounded-lg bg-[#A2B8CC] shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center focus:outline-none"
         data-route="order.completed"
         title="Order Completed">
         <img src="{{ asset('images/order-c.png') }}" alt="Order Completed" class="w-6 h-6 object-contain">
@@ -53,14 +53,14 @@
     document.addEventListener('DOMContentLoaded', function() {
         const currentPath = window.location.pathname;
         const navLinks = document.querySelectorAll('.nav-link');
-        
+
         navLinks.forEach(link => {
             const href = link.getAttribute('href');
             const route = link.getAttribute('data-route');
-            
+
             // Check if the current href matches (exact path matching)
             const isActive = currentPath === new URL(href, window.location.origin).pathname;
-            
+
             if (isActive) {
                 // Active state: white background
                 link.classList.remove('bg-[#A2B8CC]');
